@@ -1,5 +1,10 @@
 package Controller;
 
+import Model.Class.*;
+import Model.Enum.JenisAgama;
+import Model.Enum.JenisKelamin;
+import Model.Enum.StatusPerkawinan;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +16,8 @@ import javax.swing.JTextField;
 
 import org.jdatepicker.impl.JDatePickerImpl;
 
-import Model.KTP;
-
 public class Controller {
+
     public static boolean checkInput(
             JTextField nikField, JTextField namaField, JTextField tempatLahirField, JDatePickerImpl datePicker,
             ButtonGroup genderGroup, ButtonGroup bloodGroup, JTextField alamatField, JTextField rtField,
@@ -57,22 +61,74 @@ public class Controller {
             return true;
 
         }
+
     }
 
-    public static String getSelectedJobs(JCheckBox karyawanSwastaCheck, JCheckBox pnsCheck, JCheckBox wiraswastaCheck,
-            JCheckBox akademisiCheck, JCheckBox pengangguranCheck) {
+    public static void resetFields(JTextField nikField, JTextField namaField, JTextField tempatLahirField,
+            JDatePickerImpl datePicker, ButtonGroup genderGroup, ButtonGroup bloodGroup, JTextField alamatField,
+            JTextField rtField, JTextField rwField, JTextField kelurahanField, JTextField kecamatanField,
+            JComboBox<String> agamaComboBox, JComboBox<String> perkawinanBox, JCheckBox karyawanSwastaCheck,
+            JCheckBox pnsCheck, JCheckBox wiraswastaCheck, JCheckBox akademisiCheck, JCheckBox pengangguranCheck,
+            ButtonGroup citizenshipGroup, JTextField citizenshipField, File[] photoFile, File[] signatureFile,
+            JTextField tglBerlakuField, JTextField kotaPembuatanField, JDatePickerImpl tglPembuatanPicker) {
+
+        // Reset text fields
+        nikField.setText("");
+        namaField.setText("");
+        tempatLahirField.setText("");
+        alamatField.setText("");
+        rtField.setText("");
+        rwField.setText("");
+        kelurahanField.setText("");
+        kecamatanField.setText("");
+        citizenshipField.setText("");
+        tglBerlakuField.setText("");
+        kotaPembuatanField.setText("");
+
+        // Reset date picker
+        datePicker.getModel().setValue(null);
+        tglPembuatanPicker.getModel().setValue(null);
+
+        // Clear radio button selections
+        genderGroup.clearSelection();
+        bloodGroup.clearSelection();
+        citizenshipGroup.clearSelection();
+
+        // Clear combo box selections
+        agamaComboBox.setSelectedIndex(0);
+        perkawinanBox.setSelectedIndex(0);
+
+        // Clear check box selections
+        karyawanSwastaCheck.setSelected(false);
+        pnsCheck.setSelected(false);
+        wiraswastaCheck.setSelected(false);
+        akademisiCheck.setSelected(false);
+        pengangguranCheck.setSelected(false);
+
+        // Reset file references
+        if (photoFile != null && photoFile.length > 0) {
+            photoFile = null;
+        }
+        if (signatureFile != null && signatureFile.length > 0) {
+            signatureFile = null;
+        }
+
+    }
+
+    public static String getSelectedJobs(JCheckBox karyawanSwastaCheck, JCheckBox pnsCheck, JCheckBox wiraswastaCheck, JCheckBox akademisiCheck, JCheckBox pengangguranCheck) {
 
         List<String> listJob = new ArrayList<>();
         String job = "";
 
         if (pengangguranCheck.isSelected()) {
-
+            
             job = "PENGANGGURAN";
 
-        } else {
+        }
+        else {
 
             if (karyawanSwastaCheck.isSelected()) {
-
+                
                 listJob.add("KARYAWAN SWASTA");
 
             }
@@ -95,18 +151,83 @@ public class Controller {
         }
 
         if (listJob.size() > 1) {
-
+            
             for (int i = 0; i < listJob.size() - 1; i++) {
-
+                
                 job += listJob.get(i) + ", ";
 
             }
-
+            
         }
 
         job += listJob.get(listJob.size() - 1);
-
+        
         return job;
+
+    }
+
+    public static JenisAgama getJenisAgama(String agama) {
+
+        if (agama.equalsIgnoreCase("KRISTEN")) {
+            
+            return JenisAgama.KRISTEN;
+
+        }
+        else if (agama.equalsIgnoreCase("KATHOLIK")) {
+            
+            return JenisAgama.KATHOLIK;
+
+        } 
+        else if (agama.equalsIgnoreCase("ISLAM")) {
+            
+            return JenisAgama.ISLAM;
+
+        } 
+        else if (agama.equalsIgnoreCase("HINDU")) {
+            
+            return JenisAgama.HINDU;
+
+        } 
+        else if (agama.equalsIgnoreCase("BUDDHA")) {
+            
+            return JenisAgama.BUDDHA;
+
+        } 
+        else if (agama.equalsIgnoreCase("KONGHUCU")) {
+            
+            return JenisAgama.KONGHUCU;
+
+        } 
+        else {
+            
+            return JenisAgama.ADAT_KEPERCAYAAN;
+
+        } 
+
+    }
+
+    public static StatusPerkawinan getStatusPerkawinan(String status) {
+
+        if (status.equalsIgnoreCase("BELUM MENIKAH")) {
+            
+            return StatusPerkawinan.BELUM_MENIKAH;
+
+        }
+        else if (status.equalsIgnoreCase("MENIKAH")) {
+            
+            return StatusPerkawinan.MENIKAH;
+
+        } 
+        else if (status.equalsIgnoreCase("JANDA")) {
+            
+            return StatusPerkawinan.JANDA;
+
+        } 
+        else {
+            
+            return StatusPerkawinan.DUDA;
+
+        } 
 
     }
 
@@ -115,10 +236,11 @@ public class Controller {
         String citizenship = "";
 
         if (citizen.equalsIgnoreCase("WNI")) {
-
+            
             citizenship = "WNI";
 
-        } else {
+        }
+        else {
 
             citizenship = "WNA(" + country + ")";
 
@@ -128,18 +250,36 @@ public class Controller {
 
     }
 
-    public static KTP createKTP(String nik, String nama, String tempatLahir, String tanggalLahir,
-            String jenisKelamin, String golDarah, String alamat, String rtRW, String kelDesa,
-            String kecamatan,
-            String agama, String statusPerkawinan, String pekerjaan, String kewarganegaraan,
-            String wargaNegaraAsal, File photoFile, File signatureFile, String berlakuHingga, String kotaPembuatan,
-            String tanggalPembuatan) {
+    public static KTP createKTP(String nik, String nama, String tempatLahir, String tanggalLahir, JenisKelamin jenisKelamin, String golDarah, String alamat, String rt, String rw, String kelDesa, String kecamatan,
+            JenisAgama agama, StatusPerkawinan statusPerkawinan, String pekerjaan, String kewarganegaraan, String wargaNegaraAsal, File photoFile, File signatureFile, String berlakuHingga, String kotaPembuatan, String tanggalPembuatan, int actionValue) {
+        
+        KTP ktp = new KTP(nik, nama, tempatLahir, tanggalLahir, jenisKelamin, golDarah, alamat, rt, rw, kelDesa, kecamatan,
+                                agama, statusPerkawinan, pekerjaan, kewarganegaraan, wargaNegaraAsal, photoFile,
+                                signatureFile, berlakuHingga, kotaPembuatan, tanggalPembuatan);
+        
+        if (actionValue == 1) {
+            
+            DBController.insertNewUser(ktp); // ADD TO DATABASE
 
-        KTP ktp = new KTP(nik, nama, tempatLahir, tanggalLahir, jenisKelamin, golDarah, alamat, rtRW, kelDesa,
-                kecamatan,
-                agama, statusPerkawinan, pekerjaan, kewarganegaraan, wargaNegaraAsal, photoFile,
-                signatureFile, berlakuHingga, kotaPembuatan, tanggalPembuatan);
+        }
+        else {
+
+            DBController.updateData(ktp);
+
+        }
 
         return ktp;
+
     }
+
+    public static String[] setSelectedJobs(String jobs) {
+
+        String[] listJobs = jobs.split(", ");
+
+        return listJobs;
+
+    }
+
+
+
 }

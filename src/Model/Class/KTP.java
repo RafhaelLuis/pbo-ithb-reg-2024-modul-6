@@ -1,21 +1,26 @@
-package Model;
+package Model.Class;
 
 import java.io.File;
 
-public class KTP {
+import Model.Enum.JenisAgama;
+import Model.Enum.JenisKelamin;
+import Model.Enum.StatusPerkawinan;
 
+public class KTP {
+    
     private String nik;
     private String nama;
     private String tempatLahir;
     private String tanggalLahir;
-    private String jenisKelamin;
+    private JenisKelamin jenisKelamin;
     private String golDarah;
     private String alamat;
-    private String rtRW;
+    private String rt;
+    private String rw;
     private String kelDesa;
     private String kecamatan;
-    private String agama;
-    private String statusPerkawinan;
+    private JenisAgama agama;
+    private StatusPerkawinan statusPerkawinan;
     private String pekerjaan;
     private String kewarganegaraan;
     private String wargaNegaraAsal;
@@ -28,20 +33,21 @@ public class KTP {
     @Override
     public String toString() {
         return "KTP [nik=" + nik + ", nama=" + nama + ", tempatLahir=" + tempatLahir + ", tanggalLahir=" + tanggalLahir
-                + ", jenisKelamin=" + jenisKelamin + ", golDarah=" + golDarah + ", alamat=" + alamat + ", rt/rw=" + rtRW + ", kelDesa=" + kelDesa + ", kecamatan=" + kecamatan + ", agama=" + agama
+                + ", jenisKelamin=" + jenisKelamin + ", golDarah=" + golDarah + ", alamat=" + alamat + ", rt=" + rt
+                + ", rw=" + rw + ", kelDesa=" + kelDesa + ", kecamatan=" + kecamatan + ", agama=" + agama
                 + ", statusPerkawinan=" + statusPerkawinan + ", pekerjaan=" + pekerjaan + ", kewarganegaraan="
                 + kewarganegaraan + ", wargaNegaraAsal=" + wargaNegaraAsal + ", fotoFilePath=" + fotoFilePath
                 + ", tandaTanganFilePath=" + tandaTanganFilePath + ", berlakuHingga=" + berlakuHingga
                 + ", kotaPembuatan=" + kotaPembuatan + ", tanggalPembuatan=" + tanggalPembuatan + "]";
     }
 
-    public KTP() {
-
+    public KTP () {
+        
     }
 
-    public KTP(String nik, String nama, String tempatLahir, String tanggalLahir, String jenisKelamin,
-            String golDarah, String alamat, String rtRw, String kelDesa, String kecamatan, String agama,
-            String statusPerkawinan, String pekerjaan, String kewarganegaraan, String wargaNegaraAsal,
+    public KTP(String nik, String nama, String tempatLahir, String tanggalLahir, JenisKelamin jenisKelamin,
+            String golDarah, String alamat, String rt, String rw, String kelDesa, String kecamatan, JenisAgama agama,
+            StatusPerkawinan statusPerkawinan, String pekerjaan, String kewarganegaraan, String wargaNegaraAsal,
             File fotoFilePath, File tandaTanganFilePath, String berlakuHingga, String kotaPembuatan,
             String tanggalPembuatan) {
         this.nik = nik;
@@ -51,7 +57,8 @@ public class KTP {
         this.jenisKelamin = jenisKelamin;
         this.golDarah = golDarah;
         this.alamat = alamat;
-        this.rtRW = rtRw;
+        this.rt = rt;
+        this.rw = rw;
         this.kelDesa = kelDesa;
         this.kecamatan = kecamatan;
         this.agama = agama;
@@ -98,11 +105,11 @@ public class KTP {
         this.tanggalLahir = tanggalLahir;
     }
 
-    public String getJenisKelamin() {
+    public JenisKelamin getJenisKelamin() {
         return jenisKelamin;
     }
 
-    public void setJenisKelamin(String jenisKelamin) {
+    public void setJenisKelamin(JenisKelamin jenisKelamin) {
         this.jenisKelamin = jenisKelamin;
     }
 
@@ -122,12 +129,20 @@ public class KTP {
         this.alamat = alamat;
     }
 
-    public String getRtRW() {
-        return rtRW;
+    public String getRt() {
+        return rt;
     }
 
-    public void setRtRW(String rtRW) {
-        this.rtRW = rtRW;
+    public void setRt(String rt) {
+        this.rt = rt;
+    }
+
+    public String getRw() {
+        return rw;
+    }
+
+    public void setRw(String rw) {
+        this.rw = rw;
     }
 
     public String getKelDesa() {
@@ -146,19 +161,19 @@ public class KTP {
         this.kecamatan = kecamatan;
     }
 
-    public String getAgama() {
+    public JenisAgama getAgama() {
         return agama;
     }
 
-    public void setAgama(String agama) {
+    public void setAgama(JenisAgama agama) {
         this.agama = agama;
     }
 
-    public String getStatusPerkawinan() {
+    public StatusPerkawinan getStatusPerkawinan() {
         return statusPerkawinan;
     }
 
-    public void setStatusPerkawinan(String statusPerkawinan) {
+    public void setStatusPerkawinan(StatusPerkawinan statusPerkawinan) {
         this.statusPerkawinan = statusPerkawinan;
     }
 

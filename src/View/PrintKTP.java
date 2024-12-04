@@ -1,11 +1,12 @@
 package View;
 
-import Model.KTP;
+import Model.Class.KTP;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PrintKTP {
+
     private JFrame frame;
 
     public PrintKTP(KTP ktp) {
@@ -52,7 +53,7 @@ public class PrintKTP {
         addLabelAndValue(panel, "Alamat", ktp.getAlamat(), 50, 230);
 
         addLabelPlain(panel, "RT/RW", 100, 260, 100, 25);
-        addLabelPlain(panel, " : " + ktp.getRtRW(), 300, 260, 300, 25);
+        addLabelPlain(panel, " : " + ktp.getRt() + "/" + ktp.getRw(), 300, 260, 300, 25);
 
         addLabelPlain(panel, "Kel/Desa", 100, 290, 100, 25);
         addLabelPlain(panel, " : " + ktp.getKelDesa(), 300, 290, 300, 25);
@@ -71,7 +72,7 @@ public class PrintKTP {
         photoLabel.setBounds(690, 80, 240, 300);
         panel.add(photoLabel);
 
-        addLabelPlain(panel, ktp.getKotaPembuatan(), 770, 390, 200, 25);
+        addLabelPlain(panel, ktp.getKotaPembuatan(), 740, 390, 200, 25);
         addLabelPlain(panel, ktp.getTanggalPembuatan().toString(), 770, 410, 200, 25);
 
         ImageIcon signatureIcon = new ImageIcon(ktp.getTandaTanganFilePath().getAbsolutePath());
@@ -85,7 +86,7 @@ public class PrintKTP {
 
         backMainMenu.addActionListener(e -> {
             frame.dispose();
-           
+            new MainMenu();
         });
 
         frame.add(panel);
@@ -99,10 +100,12 @@ public class PrintKTP {
 
         JLabel jLabel = new JLabel(label);
         jLabel.setBounds(x, y, 200, 25);
+        jLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
         panel.add(jLabel);
 
         JLabel jValue = new JLabel(" : " + value);
         jValue.setBounds(x + 250, y, 300, 20);
+        jValue.setFont(new Font("SansSerif", Font.PLAIN, 18));
         panel.add(jValue);
 
     }
@@ -111,7 +114,7 @@ public class PrintKTP {
 
         JLabel myLabel = new JLabel(label);
         myLabel.setBounds(x, y, width, height);
-        
+        myLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
         panel.add(myLabel);
 
     }
@@ -120,6 +123,7 @@ public class PrintKTP {
 
         JLabel myLabel = new JLabel(label);
         myLabel.setBounds(x, y, width, height);
+        myLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
         panel.add(myLabel);
 
     }
